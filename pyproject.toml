@@ -1,0 +1,32 @@
+[project]
+name = "kube-audit-kit"
+version = "0.1.0"
+description = "Kubernetes zero-touch security audit toolkit - export, sanitize, group, and audit K8s resources"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "mypy>=1.19.1",
+    "pyyaml>=6.0.3",
+    "types-pyyaml>=6.0.12.20250915",
+    "rich>=13.9.4",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=scripts --cov-report=term-missing"
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
