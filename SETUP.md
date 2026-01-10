@@ -59,7 +59,7 @@ Using a dedicated audit account follows the least-privilege principle. See `exam
 kubectl apply -f examples/audit-service-account.yaml
 
 # Get the audit token
-kubectl create token audit-service-account --duration=1h
+kubectl -n <namespace> create token audit-service-account --duration=1h
 
 # Configure kubectl context to use this token
 kubectl config set-credentials audit-service-account --token=<token>

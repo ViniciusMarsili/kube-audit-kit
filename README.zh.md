@@ -15,7 +15,7 @@ Kube Audit Kit 可以导出指定 Context/Namespace 下的所有资源，进行�
 ## 特性
 
 - **零侵入**: 仅执行 `get/list` 操作，**不修改**集群任何状态
-- **全覆盖**: 动态发现所有资源类型，非硬编码列表
+- **全覆盖**: 动态发现所有命名空间资源类型，仅对少量低价值资源做排除（如 events、bindings 等）
 - **智能分组**: 基于 Workload 拓扑自动关联应用资源
 - **双重审计**: 脚本静态扫描 + AI 专家深度分析
 - **类型安全**: 完整的 Python 类型注解
@@ -255,10 +255,15 @@ kubectl config set-context audit-context \
 ```
 kube-audit-kit/
 ├── SKILL.md                      # Skill 主文件（包含元数据和指令）
-├── CLAUDE.md                     # 项目级 Claude 指令
 ├── README.md                     # 英文文档
 ├── README.zh.md                  # 中文文档
+├── QUICKSTART.md                 # 快速开始
+├── SETUP.md                      # 环境配置
+├── WORKFLOW.md                   # 完整工作流说明
+├── EXAMPLES.md                   # 使用示例
+├── audit_report_template.md      # 报告模板
 ├── pyproject.toml                # Python 项目配置
+├── uv.lock                       # 依赖锁文件（uv）
 ├── examples/
 │   └── audit-service-account.yaml # 审计服务账户 RBAC 配置示例
 ├── scripts/
@@ -266,9 +271,9 @@ kube-audit-kit/
 │   ├── sanitize.py               # 清洗 YAML 文件
 │   ├── group_apps.py             # 智能应用分组
 │   ├── audit.py                  # 安全审计
+│   ├── output.py                 # 输出处理
 │   └── utils.py                  # 工具函数
-├── tests/                        # 测试文件
-└── output/                       # 审计输出目录（运行后生成）
+└── tests/                        # 测试文件
 ```
 
 ---

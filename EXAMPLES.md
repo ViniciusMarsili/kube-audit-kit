@@ -40,6 +40,11 @@ output/prod-cluster/backend/
     ├── audit_results.json
     ├── configmap_to_secret.csv
     ├── secret_to_configmap.csv
+    ├── rbac_issues.csv
+    ├── network_security.csv
+    ├── hostpath_mounts.csv
+    ├── security_policies.csv
+    ├── pdb_and_secrets.csv
     └── audit_report.md
 ```
 

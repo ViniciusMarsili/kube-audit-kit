@@ -15,7 +15,7 @@ Kube Audit Kit exports all resources in a specified Context/Namespace, deeply sa
 ## Features
 
 - **Non-intrusive**: Only `get/list` operations, **no changes** to cluster state
-- **Full coverage**: Dynamically discovers all resource types, no hardcoded lists
+- **Full coverage**: Dynamically discovers all namespaced resource types, with a small exclude list for low-value resources (e.g., events, bindings)
 - **Smart grouping**: Associates application resources based on workload topology
 - **Dual audit**: Scripted static scan + AI expert deep analysis
 - **Type safety**: Full Python type annotations
@@ -255,10 +255,15 @@ kubectl config set-context audit-context \
 ```
 kube-audit-kit/
 ├── SKILL.md                      # Skill entry point (metadata and instructions)
-├── CLAUDE.md                     # Project-level Claude instructions
 ├── README.md                     # English documentation
 ├── README.zh.md                  # Chinese documentation
+├── QUICKSTART.md                 # Quick start guide
+├── SETUP.md                      # Environment setup
+├── WORKFLOW.md                   # End-to-end workflow details
+├── EXAMPLES.md                   # Usage examples
+├── audit_report_template.md      # Report template
 ├── pyproject.toml                # Python project config
+├── uv.lock                       # Dependency lockfile (uv)
 ├── examples/
 │   └── audit-service-account.yaml # Audit service account RBAC example
 ├── scripts/
@@ -266,9 +271,9 @@ kube-audit-kit/
 │   ├── sanitize.py               # Sanitize YAML files
 │   ├── group_apps.py             # Smart application grouping
 │   ├── audit.py                  # Security audit
+│   ├── output.py                 # Output helpers
 │   └── utils.py                  # Utilities
-├── tests/                        # Tests
-└── output/                       # Audit output (generated after run)
+└── tests/                        # Tests
 ```
 
 ---

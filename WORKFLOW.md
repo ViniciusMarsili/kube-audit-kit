@@ -32,6 +32,7 @@ uv run python scripts/export.py --context <context> --namespace <namespace>
    - `events`, `endpoints`, `endpointslices`
    - `replicasets`, `controllerrevisions`
    - `*review` resources (tokenreviews, localsubjectaccessreviews, etc.)
+   - `bindings`, `componentstatuses`, `events.events.k8s.io`
 4. **Batch export**: run `kubectl get -o yaml` for each resource type
 5. **Parse and save**: save each resource as an individual YAML file
 
