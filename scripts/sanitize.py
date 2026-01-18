@@ -10,21 +10,28 @@ import utils
 import output
 
 METADATA_FIELDS_TO_REMOVE: List[str] = [
-    "uid", "resourceVersion", "creationTimestamp", "generation",
-    "managedFields", "ownerReferences", "selfLink"
+    "uid",
+    "resourceVersion",
+    "creationTimestamp",
+    "generation",
+    "managedFields",
+    "ownerReferences",
+    "selfLink",
 ]
 
 ANNO_FIELDS_TO_REMOVE: List[str] = [
     "kubectl.kubernetes.io/last-applied-configuration",
-    "deployment.kubernetes.io/revision"
+    "kubectl.kubernetes.io/restartedAt",
+    "deployment.kubernetes.io/revision",
 ]
+
 
 def clean_metadata_dict(metadata: Dict[str, Any], path_prefix: str) -> List[str]:
     """
     Sanitize a single metadata dict and return removed field logs.
     """
     removed_logs: List[str] = []
-    
+
     for field in METADATA_FIELDS_TO_REMOVE:
         if field in metadata:
             val = metadata.pop(field)
@@ -37,13 +44,14 @@ def clean_metadata_dict(metadata: Dict[str, Any], path_prefix: str) -> List[str]
                 if field in annotations:
                     val = annotations.pop(field)
                     removed_logs.append(f"{path_prefix}.annotations.{field} = {val}")
-            
+
             if not annotations:
                 metadata.pop("annotations")
         elif annotations is None:
             metadata.pop("annotations")
 
     return removed_logs
+
 
 def recursive_sanitize(data: Any, path: str = "") -> List[str]:
     """
@@ -55,11 +63,11 @@ def recursive_sanitize(data: Any, path: str = "") -> List[str]:
         if "metadata" in data and isinstance(data["metadata"], dict):
             current_path = f"{path}.metadata" if path else "metadata"
             logs.extend(clean_metadata_dict(data["metadata"], current_path))
-        
+
         for key, value in data.items():
             if key == "metadata":
                 continue
-            
+
             new_path = f"{path}.{key}" if path else key
             logs.extend(recursive_sanitize(value, new_path))
 
@@ -69,6 +77,7 @@ def recursive_sanitize(data: Any, path: str = "") -> List[str]:
             logs.extend(recursive_sanitize(item, new_path))
 
     return logs
+
 
 def sanitize_resource(data: Dict[str, Any]) -> Tuple[Dict[str, Any], List[str]]:
     """
@@ -82,6 +91,7 @@ def sanitize_resource(data: Dict[str, Any]) -> Tuple[Dict[str, Any], List[str]]:
     removed_fields.extend(recursive_sanitize(data))
 
     return data, removed_fields
+
 
 def process_directory(context: str, namespace: str) -> None:
     paths = utils.get_output_paths(context, namespace)
@@ -98,11 +108,11 @@ def process_directory(context: str, namespace: str) -> None:
         for file in files:
             if not file.endswith(".yaml"):
                 continue
-            
+
             rel_path: Path = Path(root).relative_to(export_dir)
             source_file: Path = Path(root) / file
-            
-            with open(source_file, 'r', encoding='utf-8') as f:
+
+            with open(source_file, "r", encoding="utf-8") as f:
                 try:
                     docs: List[Any] = list(yaml.safe_load_all(f))
                 except Exception as e:
@@ -113,7 +123,8 @@ def process_directory(context: str, namespace: str) -> None:
             all_removed_fields: List[str] = []
 
             for doc in docs:
-                if not doc: continue
+                if not doc:
+                    continue
                 if isinstance(doc, dict):
                     sanitized_doc, removed = sanitize_resource(doc)
                     sanitized_docs.append(sanitized_doc)
@@ -122,18 +133,22 @@ def process_directory(context: str, namespace: str) -> None:
                     output.warning(f"Skipping non-dict document in {source_file}")
 
             target_yaml_path: Path = sanitize_dir / rel_path / file
-            target_record_path: Path = records_dir / rel_path / file.replace(".yaml", ".txt")
+            target_record_path: Path = (
+                records_dir / rel_path / file.replace(".yaml", ".txt")
+            )
 
             target_yaml_path.parent.mkdir(parents=True, exist_ok=True)
             target_record_path.parent.mkdir(parents=True, exist_ok=True)
 
-            with open(target_yaml_path, 'w', encoding='utf-8') as f:
+            with open(target_yaml_path, "w", encoding="utf-8") as f:
                 if len(sanitized_docs) == 1:
                     yaml.dump(sanitized_docs[0], f, sort_keys=False, allow_unicode=True)
                 else:
-                    yaml.dump_all(sanitized_docs, f, sort_keys=False, allow_unicode=True)
+                    yaml.dump_all(
+                        sanitized_docs, f, sort_keys=False, allow_unicode=True
+                    )
 
-            with open(target_record_path, 'w', encoding='utf-8') as f:
+            with open(target_record_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(all_removed_fields))
 
             count += 1
@@ -143,13 +158,15 @@ def process_directory(context: str, namespace: str) -> None:
     console.print()
     output.success(f"Total processed: {count} files.")
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Sanitize exported K8s resources.")
     parser.add_argument("--context", required=True, help="K8s context")
     parser.add_argument("--namespace", required=True, help="K8s namespace")
-    
+
     args = parser.parse_args()
     process_directory(args.context, args.namespace)
+
 
 if __name__ == "__main__":
     main()
